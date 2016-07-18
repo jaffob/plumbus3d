@@ -48,7 +48,7 @@ public class Plumbus3D extends JComponent implements KeyListener {
         cam = new P3DCamera();
         map = new P3DMap(mapFile);
         
-        renderer = new P3DRenderer_Basic2D();
+        renderer = new P3DRenderer_v1(cam, map, WIDTH, HEIGHT, Math.PI / 2.0);
 	}
 	
 	public void run() {
@@ -67,6 +67,7 @@ public class Plumbus3D extends JComponent implements KeyListener {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private void debugPrint() {
 		System.out.println("Camera at (" + cam.getX() + ", " + cam.getY() + ") and " + cam.getRotation() + " rads [move " + move_inc + ", rot " + rot_inc + "]");
 	}
@@ -104,7 +105,7 @@ public class Plumbus3D extends JComponent implements KeyListener {
 	}
 
 	private void drawPlayer2D(Graphics g) {
-		renderer.render(g, cam, map, WIDTH, HEIGHT);
+		renderer.render(g);
 	}
 
 	public static void main(String[] args) {

@@ -1,15 +1,15 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class P3DRenderer_Basic2D implements P3DRenderer {
+public class P3DRenderer_Basic2D extends P3DRenderer {
 
-	public P3DRenderer_Basic2D() {
-
+	public P3DRenderer_Basic2D(P3DCamera cam, P3DMap map, int width, int height) {
+		super(cam, map, width, height);
 	}
 
 
 	@Override
-	public void render(Graphics g, P3DCamera cam, P3DMap map, int width, int height) {
+	public void render(Graphics g) {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, width, height);
 		
