@@ -2,13 +2,9 @@ import java.io.*;
 
 public class P3DMap {
 	
-	private P3DWall[] walls;
+	private final P3DWall[] walls;
 	
 	public P3DMap(String mapFile) throws IOException {
-		loadMap(mapFile);
-	}
-
-	private void loadMap(String mapFile) throws IOException {
 		// Open the file.
 		BufferedReader file = new BufferedReader(new FileReader(mapFile));
 		
@@ -24,4 +20,9 @@ public class P3DMap {
 		}
 		file.close();
 	}
+
+	public P3DWall[] getWalls() {
+		return walls;
+	}
+
 }
