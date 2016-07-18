@@ -1,5 +1,4 @@
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -30,6 +29,9 @@ public class Plumbus3D extends JComponent implements KeyListener {
 	private P3DCamera cam;
 	private P3DMap map;
 	
+	// Renderer.
+	private P3DRenderer renderer;
+	
 	public Plumbus3D(String mapFile) throws IOException {
 		addKeyListener(this);
         setFocusable(true);
@@ -45,6 +47,8 @@ public class Plumbus3D extends JComponent implements KeyListener {
         
         cam = new P3DCamera();
         map = new P3DMap(mapFile);
+        
+        renderer = new P3DRenderer_Basic2D();
 	}
 	
 	public void run() {
@@ -100,19 +104,14 @@ public class Plumbus3D extends JComponent implements KeyListener {
 	}
 
 	private void drawPlayer2D(Graphics g) {
-		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
-		
-		g.setColor(Color.BLACK);
-		g.fillOval((int)cam.getX() - 5, (int)cam.getY() - 5, 10, 10);
-		g.drawLine((int)cam.getX(), (int)cam.getY(), (int)(cam.getX() + 15.0 * Math.cos(cam.getRotation())), (int)(cam.getY() + 15.0 * Math.sin(cam.getRotation())));
+		renderer.render(g, cam, map, WIDTH, HEIGHT);
 	}
 
 	public static void main(String[] args) {
 		JFrame window = new JFrame();
 		Plumbus3D p3d;
 		try {
-			p3d = new Plumbus3D("test.p3d");
+			p3d = new Plumbus3D("maps\\test.p3d");
 		} catch (IOException e) {
 			System.err.println("Error reading map file.");
 			return;
